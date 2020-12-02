@@ -1,10 +1,11 @@
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, RichTextFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, RichTextFieldPanel, MultiFieldPanel
 from wagtail.core import blocks
 
 from wagtail.core.fields import StreamField
 
 from wagtail.core.models import Page
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class HomePage(Page):
@@ -34,6 +35,14 @@ class Slider(models.Model):
         null=True,
         on_delete=models.SET_NULL
     )
+
+    panels = [
+        MultiFieldPanel([
+            FieldPanel("sub_title"),
+            FieldPanel("title"),
+            ImageChooserPanel("image")
+        ], heading="sliders"),]
+
 
     def __str__(self):
         return f'{self.sub_title}'
