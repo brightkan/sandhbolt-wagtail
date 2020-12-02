@@ -10,7 +10,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 class HomePage(Page):
     """Context"""
-    company_description =models.TextField()
+    company_description = models.TextField()
     vision = models.TextField()
     mission = models.TextField()
 
@@ -41,8 +41,7 @@ class Slider(models.Model):
             FieldPanel("sub_title"),
             FieldPanel("title"),
             ImageChooserPanel("image")
-        ], heading="sliders"),]
-
+        ], heading="sliders"), ]
 
     def __str__(self):
         return f'{self.sub_title}'
