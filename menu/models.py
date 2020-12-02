@@ -1,0 +1,59 @@
+from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
+from wagtail.admin.edit_handlers import MultiFieldPanel, FieldPanel, InlinePanel, PageChooserPanel
+from wagtail.core.models import Orderable
+from django.db import models
+from wagtail.snippets.models import register_snippet
+
+
+class MenuItem(Orderable):
+    link_title = models.CharField(max_length=30,
+                                  blank=True,
+                                  null=True)
+    link_url = models.CharField(max_length=30, blank=True)
+    link_page = models.ForeignKey("wagtailcore.Page",
+                                  null=True,
+                                  on_delete=models.SET_NULL)
+    open_in_new_tab = models.BooleanField(default=False, blank=True)
+    page = ParentalKey("Menu", related_name="menu_items")
+
+    panels = [
+        FieldPanel("link_title"),
+        FieldPanel("link_url"),
+        PageChooserPanel("link_page")
+    ]
+
+    @property
+    def link(self) -> str:
+        if self.link_page:
+            return self.link_page.url
+        elif self.link_url:
+            return self.link_url
+
+        return "#"
+
+    @property
+    def title(self)->str:
+        if self.link_page and not self.link_title:
+            return self.link_page.title
+        elif self.link_title:
+            return self.link_title
+        return "Missing Title"
+
+
+@register_snippet
+class Menu(ClusterableModel):
+    """The main menu clusterable model"""
+    title = models.CharField(max_length=100)
+    slug = models.SlugField()
+
+    panels = [
+        MultiFieldPanel([
+            FieldPanel("title"),
+            FieldPanel("slug"),
+        ], heading="Menu"),
+        InlinePanel("menu_items")
+    ]
+
+    def __str__(self):
+        return self.title

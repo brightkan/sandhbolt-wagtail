@@ -1,0 +1,36 @@
+{% load wagtailcore_tags %}
+<div id="colorlib-project">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 animate-box colorlib-heading animate-box">
+                <span class="sm">Works</span>
+                <h2><span class="thin">Our Done</span> <span class="thick">Projects</span></h2>
+            </div>
+        </div>
+        <div class="col-md-12">
+            {%if projects%}
+            <table class="table">
+                <thead>
+                <th>Year</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Role</th>
+                <th>Location</th>
+                </thead>
+                {%for project in projects%}
+                <tr>
+                    <td>{{project.year}}</td>
+                    <td>{{project.title}}</td>
+                    <td>{{project.description| richtext}}
+                    </td>
+                    <td>{{project.role}}</td>
+                    <td>{{project.location}}</td>
+                </tr>
+                {%endfor%}
+            </table>
+            {%else%}
+            <h1>No projects here</h1>
+            {%endif%}
+        </div>
+    </div>
+</div>

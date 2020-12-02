@@ -1,0 +1,26 @@
+{% load wagtailcore_tags %}
+<div id="colorlib-project">
+    <div class="container">
+        <div class="row">
+            {%if projects%}
+            {%for project in projects%}
+            <div class="col-md-6 animate-box">
+                <div class="item item-2">
+                    <a href="/media/original_images/{{project.image}}" class="project image-popup-link"
+                       style="background-image: url(/media/original_images/{{project.image}});">
+                        <div class="desc-t">
+                            <div class="desc-tc">
+                                <div class="desc">
+                                    <h3><span><small>{{project.year}}</small></span>{{project.title}}</h3>
+                                    {{project.description | richtext}}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {%endfor%}
+            {%endif%}
+        </div>
+    </div>
+</div>
