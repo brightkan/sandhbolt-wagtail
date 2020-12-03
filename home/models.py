@@ -1,15 +1,10 @@
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, RichTextFieldPanel, MultiFieldPanel
-from wagtail.core import blocks
-
-from wagtail.core.fields import StreamField
-
+from wagtail.admin.edit_handlers import FieldPanel, RichTextFieldPanel, MultiFieldPanel
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class HomePage(Page):
-    """Context"""
     company_description = models.TextField()
     vision = models.TextField()
     mission = models.TextField()
